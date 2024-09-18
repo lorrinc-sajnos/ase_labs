@@ -1,11 +1,5 @@
 plugins {
-    java
-    application
-    jacoco
-}
-
-java.toolchain {
-    languageVersion.set(JavaLanguageVersion.of(21))
+    id("hu.bme.mit.ase.shingler.gradle")
 }
 
 repositories {
@@ -28,24 +22,6 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
 }
 
-application {
-    mainClass = "hu.bme.mit.ase.shingler.similarity.SimilarityApp"
-}
-
 tasks.distZip {
     enabled = false
 }
-
-tasks {
-    test {
-        useJUnitPlatform()
-        testLogging.showStandardStreams = true
-        finalizedBy(jacocoTestReport)
-    }
-
-    jacocoTestReport {
-        inputs.files(test.get().outputs)
-    }
-}
-
-
